@@ -8,8 +8,8 @@ class Solution:
         # Reshape (M, N) tensor to (M*N/2, 2)
         # Use torch.reshape(tensor, new_shape)
         M, N = to_reshape.shape
-        reshaped = torch.reshape(to_reshape, (M * N // 2, 2))
-        return torch.round(reshaped, decimals=4)
+        return torch.reshape(to_reshape, (M * N // 2, 2))
+        
 
     def average(self, to_avg: TensorType[float]) -> TensorType[float]:
         # Compute column-wise mean (average across rows)
