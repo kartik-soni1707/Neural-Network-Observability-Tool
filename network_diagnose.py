@@ -51,7 +51,7 @@ class Solution:
                 return 'dead_neurons'
             if gradient_stat['norm']>1000:
                 return 'exploding_gradients'
-            if i==len(activation_stats)-1 and gradient_stat['norm']<exp(-5):
+            if i==0 and gradient_stat['norm']<exp(-5):
                 return 'vanishing_gradients'
             if activation_stat['std']<0.1:
                 return 'vanishing_gradients'
