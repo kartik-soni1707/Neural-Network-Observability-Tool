@@ -21,3 +21,17 @@ class Solution:
         rms = np.sqrt(np.mean(x**2) + eps)
         return np.round(gamma * x / rms, 4).tolist()
 
+if __name__ == "__main__":
+    x     = [2.0, -4.0, 6.0, -8.0]
+    gamma = [1.0, 1.0, 0.5, 2.0]
+    eps   = 1e-6
+
+    out = Solution().rms_norm(x, gamma, eps)
+    print("out:", out)
+
+    # sanity: with gamma=1, the output's RMS should be ≈ 1
+    plain = Solution().rms_norm(x, [1.0]*len(x), eps)
+    print("rms of output:", round(float(np.sqrt(np.mean(np.array(plain)**2))), 5))
+
+    # contrast with LayerNorm: mean is NOT forced to zero
+    print("mean of output:", round(float(np.mean(plain)), 5))
