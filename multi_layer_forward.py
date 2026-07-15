@@ -15,3 +15,4 @@ class Solution:
             out1= prev @ weight  + bias
             prev=np.maximum(out1,0)
         return np.round(prev @ weights[-1] + biases[-1], 5)
+#Forwarding data through multiple layers of neurons
