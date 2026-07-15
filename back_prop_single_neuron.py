@@ -18,3 +18,17 @@ class Solution:
         dL_db = dz                        # dz/db = 1  -> scalar
 
         return np.round(dL_dw, 5), round(float(dL_db), 5)
+
+#We update weights by propagating error backwards 
+#Use chain rule to compute gradients 
+# --- setup ---
+np.random.seed(0)
+x = np.array([0.5, -1.2, 2.0])
+w = np.array([0.1, 0.4, -0.3])
+b = 0.2
+y_true = 1.0
+
+sol = Solution()
+dw, db = sol.backward(x, w, b, y_true)
+print("analytical dL/dw:", dw)
+print("analytical dL/db:", db)
