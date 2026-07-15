@@ -24,3 +24,18 @@ class Solution:
         res/=len(model_prediction)
         res=res[0]
         return round(res,5)
+#Kind of atomic operation or the logic per layer
+if __name__ == "__main__":
+    sol = Solution()
+
+    # 3 samples, 2 features
+    X = np.array([[1.0, 2.0],
+                  [3.0, 4.0],
+                  [5.0, 6.0]])
+    weights = np.array([0.5, -1.0])
+
+    preds = sol.get_model_prediction(X, weights)
+    print(preds)   # [-1.5, -2.5, -3.5]
+
+    ground_truth = np.array([[-1.0], [-2.0], [-4.0]])
+    print(sol.get_error(np.array(preds), ground_truth))   # 0.25
