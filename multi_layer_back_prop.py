@@ -42,3 +42,18 @@ class Solution:
             'dW2': np.round(dW2, 4).tolist(),
             'db2': np.round(db2, 4).tolist(),
         }
+#Multi-layer backpropagation is the same chain rule as single-neuron backprop, just applied to more links. Each layer's weight gradient is the outer product of the error signal arriving from above and the activation arriving from below.
+
+# 2 inputs → 3 hidden (ReLU) → 1 output
+x  = [1.0, -2.0]
+W1 = [[0.5, -0.3],
+      [0.8,  0.2],
+      [-0.5, 0.7]]
+b1 = [0.1, 0.0, -0.2]
+W2 = [[1.0, -1.5, 0.5]]
+b2 = [0.3]
+y_true = [1.0]
+
+res = Solution().forward_and_backward(x, W1, b1, W2, b2, y_true)
+for k, v in res.items():
+    print(k, "=", v)
