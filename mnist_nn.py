@@ -20,3 +20,4 @@ class Solution(nn.Module):
         # images shape: (batch_size, 784)
         # Return the model's prediction to 4 decimal places
         return self.model(images)
+#Using neural nets as opposed to cnns to classify digits
