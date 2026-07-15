@@ -35,3 +35,20 @@ class Solution:
         res/=len(y_pred)
         return round(res,4)
 
+#Loss function for classification problems 
+if __name__ == "__main__":
+    sol = Solution()
+
+    # Binary cross-entropy
+    y_true = np.array([1.0, 0.0, 1.0, 1.0])
+    y_pred = np.array([0.9, 0.1, 0.8, 0.7])
+    print(sol.binary_cross_entropy(y_true, y_pred))   # 0.2027
+
+    # Categorical cross-entropy (3 samples, 3 classes)
+    y_true_c = np.array([[1.0, 0.0, 0.0],
+                         [0.0, 1.0, 0.0],
+                         [0.0, 0.0, 1.0]])
+    y_pred_c = np.array([[0.7, 0.2, 0.1],
+                        [0.1, 0.8, 0.1],
+                        [0.2, 0.2, 0.6]])
+    print(sol.categorical_cross_entropy(y_true_c, y_pred_c))   # 0.3635
