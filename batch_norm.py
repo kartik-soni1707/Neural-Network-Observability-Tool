@@ -29,3 +29,27 @@ class Solution:
         
         y=np.round((gamma*xhat+beta),decimals=4)
         return (y, running_mean, running_var)
+# Preserve signal by averaging over the columns in batch
+#Good for CNNs etc large batch and fixed cols
+
+if __name__ == "__main__":
+    x = [[1.0, 2.0],
+         [3.0, 4.0],
+         [5.0, 6.0]]          # batch of 3 samples, 2 features
+    gamma = [1.0, 2.0]
+    beta  = [0.0, 0.5]
+    rm, rv = [0.0, 0.0], [1.0, 1.0]
+    momentum, eps = 0.1, 1e-5
+
+    sol = Solution()
+
+    # training step: uses batch stats, updates running stats
+    y, rm, rv = sol.batch_norm(x, gamma, beta, rm, rv, momentum, eps, training=True)
+    print("train y:", y)
+    print("running_mean:", rm)     # nudged 10% toward batch mean [3, 4]
+    print("running_var: ", rv)
+
+    # inference: uses running stats, batch of ONE works fine
+    y2, rm2, rv2 = sol.batch_norm([[2.0, 3.0]], gamma, beta, rm, rv, momentum, eps, training=False)
+    print("infer y:", y2)
+    print("stats unchanged:", rm2 == rm, rv2 == rv)

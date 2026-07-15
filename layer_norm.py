@@ -17,6 +17,7 @@ class Solution:
         return np.round(out, 5)
 
 #Layer normalization normalizes across features within each sample, making it independent of batch size and ideal for transformers.
+#Use it for nlp in transformers, small batches
 if __name__ == "__main__":
     x     = np.array([2.0, 4.0, 6.0, 8.0])
     gamma = np.array([1.0, 1.0, 2.0, 0.5])
