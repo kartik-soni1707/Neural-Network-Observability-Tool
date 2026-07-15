@@ -46,3 +46,29 @@ class Solution:
             prev=fraction
         return 'healthy'
         
+# Dead relu neurons can cause issues and common fixes
+if __name__ == "__main__":
+    torch.manual_seed(0)
+    x = torch.randn(64, 10)
+    sol = Solution()
+
+    # normal init → should be mostly healthy
+    model = nn.Sequential(nn.Linear(10, 32), nn.ReLU(),
+                          nn.Linear(32, 32), nn.ReLU(),
+                          nn.Linear(32, 4))
+    fr = sol.detect_dead_neurons(model, x)
+    print("healthy-ish:", fr, "->", sol.suggest_fix(fr))
+
+    # murder a layer: huge negative bias → all pre-activations < 0
+    dead_model = nn.Sequential(nn.Linear(10, 32), nn.ReLU(),
+                               nn.Linear(32, 32), nn.ReLU(),
+                               nn.Linear(32, 4))
+    with torch.no_grad():
+        dead_model[2].bias.fill_(-100.0)      # second Linear → its ReLU goes fully dead
+    fr = sol.detect_dead_neurons(dead_model, x)
+    print("killed layer:", fr, "->", sol.suggest_fix(fr))   # expect use_leaky_relu
+
+    # pure-logic checks on suggest_fix
+    print(sol.suggest_fix([0.4, 0.1]))          # reinitialize (first layer > 0.3)
+    print(sol.suggest_fix([0.05, 0.12, 0.2]))   # reduce_learning_rate (increasing, last > 0.1)
+    print(sol.suggest_fix([0.02, 0.05]))        # healthy
