@@ -32,3 +32,20 @@ class Solution:
         for j in range(len(weights)):
             weights[j]=round(weights[j],5)
         return weights
+# Fundamental/ unit learning neuron
+if __name__ == "__main__":
+    sol = Solution()
+
+    # Data generated from y = 2*x1 + 3*x2 (no noise), so training should
+    # recover weights close to [2, 3]
+    X = np.array([[1.0, 1.0],
+                  [2.0, 1.0],
+                  [1.0, 2.0],
+                  [3.0, 2.0],
+                  [2.0, 3.0]])
+    Y = np.array([5.0, 7.0, 8.0, 12.0, 13.0])
+
+    initial_weights = np.array([0.0, 0.0])
+    final = sol.train_model(X, Y, num_iterations=1000, initial_weights=initial_weights)
+    print(final)                                   # ~[2. 3.]
+    print(sol.get_model_prediction(X, final))      # ~[5. 7. 8. 12. 13.]
