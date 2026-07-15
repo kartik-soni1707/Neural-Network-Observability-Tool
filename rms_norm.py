@@ -20,7 +20,7 @@ class Solution:
         gamma = np.array(gamma, dtype=np.float64)
         rms = np.sqrt(np.mean(x**2) + eps)
         return np.round(gamma * x / rms, 4).tolist()
-
+#Transformers use this due to simplicity as well as half the params compared to Layer Norm
 if __name__ == "__main__":
     x     = [2.0, -4.0, 6.0, -8.0]
     gamma = [1.0, 1.0, 0.5, 2.0]
