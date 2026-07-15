@@ -23,5 +23,18 @@ class Solution:
             res=max(res,0.0)
         return round(res,5)
 
-    
+# Single neuron works by activation (w*x+b)
+if __name__ == "__main__":
+    sol = Solution()
+
+    x = np.array([1.0, 2.0, 3.0])
+    w = np.array([0.5, -0.5, 1.0])
+    b = 0.5   # z = 0.5 - 1.0 + 3.0 + 0.5 = 3.0
+
+    print(sol.forward(x, w, b, "sigmoid"))   # 0.95257
+    print(sol.forward(x, w, b, "relu"))      # 3.0
+
+    b2 = -4.0  # z = 2.5 - 4.0 = -1.5
+    print(sol.forward(x, w, b2, "sigmoid"))  # 0.18243
+    print(sol.forward(x, w, b2, "relu"))     # 0.0
 
