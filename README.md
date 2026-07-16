@@ -31,3 +31,4 @@ Forward hooks collect per-layer activation stats (mean, std, dead-neuron fractio
     dead_relu.py/network_diagnose.py        the diagnostics tool
     mnist_nn.py       induce -> diagnose -> fix -> verify (MNIST)
     sentiment_annalysis.py   same loop, embedding-based sentiment model
+    Note the other files are neural nets implemented from scratch using numpy, this was done to better understand failure points and their fixes
