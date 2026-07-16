@@ -18,7 +18,7 @@ if __name__ == "__main__":
     sol = Solution()
 
     z1 = np.array([1.0, 2.0, 3.0])
-    print(sol.softmax(z1))   # [0.09   0.2447 0.6652]
+    print(sol.softmax(z1))   # [0.09  0.2447 0.6652]
 
     z2 = np.array([1000.0, 1001.0, 1002.0])
     print(sol.softmax(z2))   # [0.09   0.2447 0.6652] — no overflow thanks to max subtraction
