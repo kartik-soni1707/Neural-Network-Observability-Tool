@@ -67,3 +67,18 @@ if __name__ == "__main__":
     print("high-LR losses:", train(hot, X, y, lr=25.0)[:5])         # expect blow-up/nan
     cool = MNISTClassifier()
     print("reduced-LR losses:", train(cool, X, y, lr=0.1)[:5])      # expect steady descent
+    # ---------- ONNX export for Netron ----------
+    model = MNISTClassifier()
+    model.eval()                              # important: freezes Dropout out of the graph
+    dummy = torch.randn(1, 784)               # example input; shapes get traced from it
+
+    torch.onnx.export(
+        model,
+        dummy,
+        "mnist_classifier.onnx",
+        input_names=["images"],
+        output_names=["logits"],
+        dynamic_axes={"images": {0: "batch"},   # batch dim marked variable
+                      "logits": {0: "batch"}},
+    )
+    print("saved mnist_classifier.onnx")
